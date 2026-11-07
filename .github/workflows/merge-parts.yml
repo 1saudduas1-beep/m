@@ -1,0 +1,48 @@
+name: Merge uploaded parts
+on:
+  push:
+    paths:
+      - '**/*.parts/_meta.json'
+      - '.github/workflows/merge-parts.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: merge-parts
+  cancel-in-progress: false
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Merge parts into single files
+        run: |
+          python3 - <<'EOF'
+          import json, os, glob, shutil
+          for m in glob.glob('**/*.parts/_meta.json', recursive=True):
+              d = os.path.dirname(m)
+              target = d[:-len('.parts')]
+              meta = json.load(open(m, encoding='utf-8'))
+              parts = sorted(f for f in os.listdir(d) if f != '_meta.json')
+              if len(parts) != meta['parts']:
+                  print('skip incomplete', d); continue
+              tmp = target + '.tmp_merge'
+              with open(tmp, 'wb') as o:
+                  for f in parts:
+                      with open(os.path.join(d, f), 'rb') as r:
+                          shutil.copyfileobj(r, o)
+              if os.path.getsize(tmp) != meta['size']:
+                  os.remove(tmp); print('size mismatch', d); continue
+              os.replace(tmp, target)
+              shutil.rmtree(d)
+              print('merged', target)
+          EOF
+      - name: Commit and push
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Merge uploaded parts"
+            for i in 1 2 3 4 5; do git pull --rebase -q && git push && break; sleep 3; done
+          fi
