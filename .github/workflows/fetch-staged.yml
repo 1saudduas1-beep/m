@@ -1,4 +1,5 @@
 name: Fetch staged file
+run-name: Fetch ${{ inputs.path }}
 on:
   workflow_dispatch:
     inputs:
@@ -11,6 +12,9 @@ on:
       size:
         description: expected size
         required: true
+      sizes:
+        description: expected part sizes, comma separated
+        required: false
       sha256:
         description: optional sha256
         required: false
@@ -26,29 +30,49 @@ jobs:
           URLS: ${{ inputs.urls }}
           TARGET: ${{ inputs.path }}
           SIZE: ${{ inputs.size }}
+          SIZES: ${{ inputs.sizes }}
           SHA: ${{ inputs.sha256 }}
         run: |
           python3 - <<'EOF'
-          import os, sys, time, hashlib, urllib.request
+          import os, sys, time, hashlib, urllib.request, urllib.error
           urls = [u.strip() for u in os.environ['URLS'].split('\n') if u.strip()]
           target = os.environ['TARGET']; size = int(os.environ['SIZE']); sha = os.environ.get('SHA', '')
+          sizes = [int(x) for x in os.environ.get('SIZES', '').split(',') if x.strip().isdigit()]
           os.makedirs(os.path.dirname(target) or '.', exist_ok=True)
-          tmp = '/tmp/assembled.bin'; h = hashlib.sha256()
+          UAS = ['Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/120 Mobile Safari/537.36', 'curl/8.5.0', 'Mozilla/5.0']
+          def variants(u):
+              r = [u]
+              if '/dl/' in u: r.append(u.replace('/dl/', '/'))
+              else: r.append(u.replace('tmpfiles.org/', 'tmpfiles.org/dl/'))
+              return r
+          tmp = '/tmp/assembled.bin'; h = hashlib.sha256(); total = 0
           with open(tmp, 'wb') as o:
-              for u in urls:
-                  data = None
-                  for a in range(8):
+              for idx, u in enumerate(urls):
+                  want = sizes[idx] if idx < len(sizes) else None
+                  data = None; why = ''
+                  for a in range(10):
+                      uu = variants(u)[a % 2]
                       try:
-                          req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0'})
-                          data = urllib.request.urlopen(req, timeout=120).read()
-                          break
+                          req = urllib.request.Request(uu, headers={'User-Agent': UAS[a % 3], 'Accept': '*/*'})
+                          with urllib.request.urlopen(req, timeout=120) as r:
+                              ct = r.headers.get('Content-Type', ''); b = r.read(); st = r.status
+                          head = b[:200]
+                          bad = b.lstrip()[:1] == b'<' or 'text/html' in ct
+                          print('part', idx + 1, 'try', a + 1, 'status', st, 'type', ct, 'bytes', len(b), 'want', want, 'url', uu)
+                          if bad and want != len(b):
+                              why = 'html-or-text response'; print('  body:', head.decode('utf-8', 'replace').replace('\n', ' ')[:200])
+                          elif want is not None and len(b) != want:
+                              why = 'size %d != %d' % (len(b), want)
+                          else:
+                              data = b; break
                       except Exception as e:
-                          print('retry', a, u, e); time.sleep(6)
+                          why = str(e); print('part', idx + 1, 'try', a + 1, 'error', e, uu)
+                      time.sleep(5 + a * 3)
                   if data is None:
-                      sys.exit('download failed: ' + u)
-                  o.write(data); h.update(data)
-          if os.path.getsize(tmp) != size:
-              sys.exit('size mismatch %d != %d' % (os.path.getsize(tmp), size))
+                      sys.exit('DOWNLOAD FAILED part %d/%d (%s): %s' % (idx + 1, len(urls), why, u))
+                  o.write(data); h.update(data); total += len(data)
+          if total != size:
+              sys.exit('size mismatch %d != %d' % (total, size))
           if sha and h.hexdigest() != sha:
               sys.exit('sha256 mismatch')
           os.replace(tmp, target)
