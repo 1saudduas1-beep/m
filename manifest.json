@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-08T02:15:26.826Z",
+  "updated": "2026-11-08T02:19:19.602Z",
   "subjects": [
     {
       "name": ".github",
@@ -30,18 +30,7 @@
     },
     {
       "name": "Embryology",
-      "files": [
-        {
-          "name": "cardiovascular s.embryology_Extracted (1).pdf",
-          "size": 513237,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Embryology/cardiovascular%20s.embryology_Extracted%20(1).pdf"
-        },
-        {
-          "name": "Pharmacology_Uses_AdverseEffects_English-Copy.pdf",
-          "size": 59506,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Embryology/Pharmacology_Uses_AdverseEffects_English-Copy.pdf"
-        }
-      ]
+      "files": []
     }
   ]
 }
