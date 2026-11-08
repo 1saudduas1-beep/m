@@ -1,0 +1,63 @@
+name: Fetch staged file
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: part urls, one per line
+        required: true
+      path:
+        description: target path
+        required: true
+      size:
+        description: expected size
+        required: true
+      sha256:
+        description: optional sha256
+        required: false
+permissions:
+  contents: write
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download parts and assemble
+        env:
+          URLS: ${{ inputs.urls }}
+          TARGET: ${{ inputs.path }}
+          SIZE: ${{ inputs.size }}
+          SHA: ${{ inputs.sha256 }}
+        run: |
+          python3 - <<'EOF'
+          import os, sys, time, hashlib, urllib.request
+          urls = [u.strip() for u in os.environ['URLS'].split('\n') if u.strip()]
+          target = os.environ['TARGET']; size = int(os.environ['SIZE']); sha = os.environ.get('SHA', '')
+          os.makedirs(os.path.dirname(target) or '.', exist_ok=True)
+          tmp = '/tmp/assembled.bin'; h = hashlib.sha256()
+          with open(tmp, 'wb') as o:
+              for u in urls:
+                  data = None
+                  for a in range(8):
+                      try:
+                          req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0'})
+                          data = urllib.request.urlopen(req, timeout=120).read()
+                          break
+                      except Exception as e:
+                          print('retry', a, u, e); time.sleep(6)
+                  if data is None:
+                      sys.exit('download failed: ' + u)
+                  o.write(data); h.update(data)
+          if os.path.getsize(tmp) != size:
+              sys.exit('size mismatch %d != %d' % (os.path.getsize(tmp), size))
+          if sha and h.hexdigest() != sha:
+              sys.exit('sha256 mismatch')
+          os.replace(tmp, target)
+          print('assembled', target, size)
+          EOF
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add staged file" || exit 0
+          for i in 1 2 3 4 5 6 7 8 9 10; do git pull --rebase -q && git push && break; sleep $((RANDOM % 6 + 2)); done
