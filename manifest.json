@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-08T01:22:32.912Z",
+  "updated": "2026-11-08T01:23:06.463Z",
   "subjects": [
     {
       "name": ".github",
@@ -26,11 +26,6 @@
     {
       "name": "Embryology",
       "files": [
-        {
-          "name": "Notes_261001_231144 (1)-Copy.pdf",
-          "size": 34927,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Embryology/Notes_261001_231144%20(1)-Copy.pdf"
-        },
         {
           "name": "Pharmacology_Uses_AdverseEffects_English-Copy.pdf",
           "size": 59506,
