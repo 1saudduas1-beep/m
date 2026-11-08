@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-08T02:19:19.602Z",
+  "updated": "2026-11-08T02:19:28.408Z",
   "subjects": [
     {
       "name": ".github",
@@ -20,13 +20,7 @@
     },
     {
       "name": "Anatomy",
-      "files": [
-        {
-          "name": "Parasitology_Classified_Questions-Copy.pdf",
-          "size": 138164,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Anatomy/Parasitology_Classified_Questions-Copy.pdf"
-        }
-      ]
+      "files": []
     },
     {
       "name": "Embryology",
