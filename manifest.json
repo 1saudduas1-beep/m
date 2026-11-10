@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-10T00:59:21.576Z",
+  "updated": "2026-11-10T11:00:17.436Z",
   "subjects": [
     {
       "name": ".github",
@@ -40,6 +40,16 @@
           "name": "cardiovascular s.embryology-Copy.pdf",
           "size": 3089432,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Embryology/cardiovascular%20s.embryology-Copy.pdf"
+        }
+      ]
+    },
+    {
+      "name": "Pharmacology",
+      "files": [
+        {
+          "name": "Pharmacology CVS-Copy.pdf",
+          "size": 3816722,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Pharmacology/Pharmacology%20CVS-Copy.pdf"
         }
       ]
     },
