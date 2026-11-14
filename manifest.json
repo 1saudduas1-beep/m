@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-14T12:18:57.061Z",
+  "updated": "2026-11-14T13:01:05.321Z",
   "subjects": [
     {
       "name": ".github",
@@ -50,6 +50,16 @@
           "name": "Biochemistry CVS-Copy.pdf",
           "size": 883312,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Biochemistry/Biochemistry%20CVS-Copy.pdf"
+        }
+      ]
+    },
+    {
+      "name": "clinical skills",
+      "files": [
+        {
+          "name": "Macleods Clinical Examination 14th Edition_Extracted.pdf",
+          "size": 5602531,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/clinical%20skills/Macleods%20Clinical%20Examination%2014th%20Edition_Extracted.pdf"
         }
       ]
     },
