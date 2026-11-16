@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-15T01:37:22.474Z",
+  "updated": "2026-11-16T01:59:51.129Z",
   "subjects": [
     {
       "name": ".github",
@@ -60,6 +60,11 @@
           "name": "Macleods Clinical Examination 14th Edition_Extracted.pdf",
           "size": 5602531,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/clinical%20skills/Macleods%20Clinical%20Examination%2014th%20Edition_Extracted.pdf"
+        },
+        {
+          "name": "The cardiovascular system_261113_150106-Copy.pdf",
+          "size": 8444846,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/clinical%20skills/The%20cardiovascular%20system_261113_150106-Copy.pdf"
         }
       ]
     },
