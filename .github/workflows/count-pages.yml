@@ -1,0 +1,104 @@
+# pc-v1
+name: Count pages
+run-name: Count pages
+on:
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: optional file paths separated by | (empty = all new or changed files)
+        required: false
+        default: ''
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pypdf
+      - name: Count pages
+        env:
+          TARGETS: ${{ inputs.paths }}
+        run: |
+          python3 - <<'EOF'
+          import os, json, re, zipfile, hashlib, subprocess
+          from pypdf import PdfReader
+          target = [x for x in os.environ.get('TARGETS', '').split('|') if x]
+          out = 'pagecounts.json'
+          db = {}
+          if os.path.isfile(out):
+              try:
+                  db = json.load(open(out, encoding='utf-8'))
+              except Exception:
+                  db = {}
+          NUL = chr(0)
+          def gsha(p):
+              h = hashlib.sha1()
+              h.update(('blob %d' % os.path.getsize(p)).encode() + NUL.encode())
+              with open(p, 'rb') as f:
+                  for c in iter(lambda: f.read(1048576), b''):
+                      h.update(c)
+              return h.hexdigest()
+          def count(p, name):
+              low = name.lower()
+              if low.endswith('.pdf'):
+                  r = PdfReader(p)
+                  if r.is_encrypted and not r.decrypt(''):
+                      return -1
+                  return len(r.pages)
+              z = zipfile.ZipFile(p)
+              if low.endswith('.pptx'):
+                  n = len([x for x in z.namelist() if re.match('^ppt/slides/slide[0-9]+[.]xml$', x)])
+                  return n if n else -1
+              m = re.search('<Pages>([0-9]+)</Pages>', z.read('docProps/app.xml').decode('utf-8', 'ignore'))
+              return int(m.group(1)) if m and int(m.group(1)) > 0 else -1
+          files = [f for f in subprocess.check_output(['git', 'ls-files', '-z']).decode('utf-8').split(NUL) if f]
+          parts = {}
+          for p in files:
+              m = re.match('^(.+)[.]parts/[0-9]{4}$', p)
+              if m:
+                  parts.setdefault(m.group(1), []).append(p)
+          ext = re.compile('[.](pdf|pptx|docx)$', re.I)
+          items = sorted(set([p for p in files if ext.search(p)] + [b for b in parts if ext.search(b)]))
+          items = [p for p in items if not p.startswith('.')]
+          res = {}
+          for p in items:
+              if target and p not in target:
+                  if p in db:
+                      res[p] = db[p]
+                  continue
+              try:
+                  if p in parts:
+                      ps = sorted(parts[p])
+                      sig = hashlib.sha1(''.join(gsha(x) for x in ps).encode()).hexdigest()
+                  else:
+                      ps = None
+                      sig = gsha(p)
+                  old = db.get(p)
+                  if old and old.get('h') == sig and not target:
+                      res[p] = old
+                      continue
+                  src = p
+                  if ps:
+                      src = '/tmp/merged.bin'
+                      with open(src, 'wb') as o:
+                          for x in ps:
+                              with open(x, 'rb') as r:
+                                  o.write(r.read())
+                  n = count(src, p)
+                  res[p] = {'n': n, 'h': sig}
+                  print(p, n)
+              except Exception as e:
+                  print('failed', p, e)
+                  if p in db:
+                      res[p] = db[p]
+          with open(out, 'w', encoding='utf-8') as o:
+              json.dump(res, o, ensure_ascii=False, indent=0, sort_keys=True)
+          EOF
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pagecounts.json
+          git commit -m "Update page counts" || exit 0
+          for i in 1 2 3 4 5 6 7 8 9 10; do git pull --rebase -q && git push && break; sleep $((RANDOM % 6 + 2)); done
