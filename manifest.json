@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-17T03:44:02.763Z",
+  "updated": "2026-11-17T11:27:06.384Z",
   "subjects": [
     {
       "name": ".github",
@@ -66,6 +66,11 @@
     {
       "name": "Biochemistry",
       "files": [
+        {
+          "name": "Biochemistry CVS .._-Copy.pdf",
+          "size": 1983749,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Biochemistry/Biochemistry%20CVS%20.._-Copy.pdf"
+        },
         {
           "name": "Biochemistry CVS-Copy.pdf",
           "size": 883312,
