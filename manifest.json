@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-17T00:45:03.391Z",
+  "updated": "2026-11-17T01:54:23.920Z",
   "subjects": [
     {
       "name": ".github",
@@ -15,6 +15,16 @@
           "name": "workflows/merge-parts.yml",
           "size": 1739,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/.github/workflows/merge-parts.yml"
+        }
+      ]
+    },
+    {
+      "name": "علم النفس",
+      "files": [
+        {
+          "name": "مدخل الى علم النفس-1-Copy.pdf",
+          "size": 6267015,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/%D8%B9%D9%84%D9%85%20%D8%A7%D9%84%D9%86%D9%81%D8%B3/%D9%85%D8%AF%D8%AE%D9%84%20%D8%A7%D9%84%D9%89%20%D8%B9%D9%84%D9%85%20%D8%A7%D9%84%D9%86%D9%81%D8%B3-1-Copy.pdf"
         }
       ]
     },
