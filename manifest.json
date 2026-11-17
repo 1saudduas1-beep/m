@@ -1,28 +1,8 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-17T11:28:20.376Z",
+  "updated": "2026-11-17T11:59:15.265Z",
   "subjects": [
-    {
-      "name": ".github",
-      "files": [
-        {
-          "name": "workflows/delete-pages.yml",
-          "size": 3071,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/.github/workflows/delete-pages.yml"
-        },
-        {
-          "name": "workflows/fetch-staged.yml",
-          "size": 3989,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/.github/workflows/fetch-staged.yml"
-        },
-        {
-          "name": "workflows/merge-parts.yml",
-          "size": 1739,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/.github/workflows/merge-parts.yml"
-        }
-      ]
-    },
     {
       "name": "علم النفس",
       "files": [
