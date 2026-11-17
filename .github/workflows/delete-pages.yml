@@ -1,0 +1,76 @@
+name: Delete PDF pages
+run-name: Delete pages ${{ inputs.path }}
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: pdf path
+        required: true
+      pages:
+        description: pages to delete, e.g. 3,5-7
+        required: true
+      mode:
+        description: replace or copy
+        required: true
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pypdf
+      - name: Remove pages
+        env:
+          TARGET: ${{ inputs.path }}
+          PAGES: ${{ inputs.pages }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          python3 - <<'EOF'
+          import os, sys, shutil
+          from pypdf import PdfReader, PdfWriter
+          target = os.environ['TARGET']; spec = os.environ['PAGES']; mode = os.environ['MODE']
+          src = target; pdir = target + '.parts'; merged = False
+          if not os.path.isfile(target):
+              if not os.path.isdir(pdir): sys.exit('file not found: ' + target)
+              parts = sorted(f for f in os.listdir(pdir) if f != '_meta.json')
+              with open('/tmp/merged.pdf', 'wb') as o:
+                  for f in parts:
+                      with open(os.path.join(pdir, f), 'rb') as r: shutil.copyfileobj(r, o)
+              src = '/tmp/merged.pdf'; merged = True
+          rd = PdfReader(src)
+          if rd.is_encrypted and not rd.decrypt(''): sys.exit('encrypted pdf')
+          n = len(rd.pages); drop = set()
+          for t in spec.split(','):
+              t = t.strip()
+              if not t: continue
+              a, _, b = t.partition('-')
+              a = int(a); b = int(b) if b else a
+              if a > b: a, b = b, a
+              if a < 1 or b > n: sys.exit('page out of range 1..%d: %s' % (n, t))
+              drop.update(range(a - 1, b))
+          if not drop: sys.exit('no pages given')
+          if len(drop) >= n: sys.exit('cannot delete all pages')
+          w = PdfWriter()
+          for i, pg in enumerate(rd.pages):
+              if i not in drop: w.add_page(pg)
+          try:
+              if rd.metadata: w.add_metadata({k: v for k, v in rd.metadata.items() if isinstance(v, str)})
+          except Exception as e: print('metadata skipped', e)
+          if mode == 'copy':
+              base = target[:-4] if target.lower().endswith('.pdf') else target
+              out = base + ' (after page deletion).pdf'
+          else:
+              out = target
+          with open('/tmp/out.pdf', 'wb') as o: w.write(o)
+          shutil.move('/tmp/out.pdf', out)
+          if merged and mode != 'copy': shutil.rmtree(pdir)
+          print('pages', n, '->', n - len(drop), out)
+          EOF
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Delete PDF pages" || exit 0
+          for i in 1 2 3 4 5 6 7 8 9 10; do git pull --rebase -q && git push && break; sleep $((RANDOM % 6 + 2)); done
