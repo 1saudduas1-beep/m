@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-22T00:22:33.595Z",
+  "updated": "2026-11-22T00:40:00.759Z",
   "subjects": [
     {
       "name": "علم النفس",
@@ -90,6 +90,21 @@
           "name": "Histology.pdf",
           "size": 4440989,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Histology/Histology.pdf"
+        }
+      ]
+    },
+    {
+      "name": "pathology",
+      "files": [
+        {
+          "name": "Diseases of blood vessels.pdf",
+          "size": 3470848,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/pathology/Diseases%20of%20blood%20vessels.pdf"
+        },
+        {
+          "name": "Heart diseases.pdf",
+          "size": 4193705,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/pathology/Heart%20diseases.pdf"
         }
       ]
     },
