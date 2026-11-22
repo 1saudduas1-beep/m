@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-22T00:40:00.759Z",
+  "updated": "2026-11-22T00:49:31.742Z",
   "subjects": [
     {
       "name": "علم النفس",
@@ -125,6 +125,16 @@
           "name": "CVS BLOCK-Medicine-2026.pdf",
           "size": 10339280,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Physiology/CVS%20BLOCK-Medicine-2026.pdf"
+        }
+      ]
+    },
+    {
+      "name": "practical anatomy",
+      "files": [
+        {
+          "name": "Clinical anatomy of CVS.pdf",
+          "size": 6339010,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20anatomy/Clinical%20anatomy%20of%20CVS.pdf"
         }
       ]
     },
