@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-23T17:42:12.562Z",
+  "updated": "2026-11-23T17:45:06.427Z",
   "subjects": [
     {
       "name": "علم النفس",
@@ -57,14 +57,14 @@
       "name": "Biochemistry",
       "files": [
         {
-          "name": "Biochemistry CVS .._-Copy.pdf",
-          "size": 1983749,
-          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Biochemistry/Biochemistry%20CVS%20.._-Copy.pdf"
-        },
-        {
           "name": "Biochemistry CVS-Copy.pdf",
           "size": 883312,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Biochemistry/Biochemistry%20CVS-Copy.pdf"
+        },
+        {
+          "name": "Biochemistry CVS.pdf",
+          "size": 1983749,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/Biochemistry/Biochemistry%20CVS.pdf"
         }
       ]
     },
