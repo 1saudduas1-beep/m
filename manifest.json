@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-22T22:39:16.905Z",
+  "updated": "2026-11-23T02:27:20.384Z",
   "subjects": [
     {
       "name": "علم النفس",
@@ -145,6 +145,16 @@
           "name": "Practical Cardiovascular Histology.pdf",
           "size": 5031178,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20histology/Practical%20Cardiovascular%20Histology.pdf"
+        }
+      ]
+    },
+    {
+      "name": "practical physiology",
+      "files": [
+        {
+          "name": "practical ECG.pdf",
+          "size": 7831464,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20physiology/practical%20ECG.pdf"
         }
       ]
     }
