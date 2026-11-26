@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-24T01:23:40.361Z",
+  "updated": "2026-11-26T02:04:18.422Z",
   "subjects": [
     {
       "name": "إحصاء",
@@ -165,6 +165,11 @@
           "name": "CVS 1.pdf",
           "size": 2065839,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20pathology/CVS%201.pdf"
+        },
+        {
+          "name": "CVS 2.pdf",
+          "size": 3242008,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20pathology/CVS%202.pdf"
         }
       ]
     },
