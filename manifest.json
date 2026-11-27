@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-27T04:49:44.002Z",
+  "updated": "2026-11-27T05:05:57.359Z",
   "subjects": [
     {
       "name": "إحصاء",
@@ -10,6 +10,11 @@
           "name": "إحصاء.pdf",
           "size": 4149223,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/%D8%A5%D8%AD%D8%B5%D8%A7%D8%A1/%D8%A5%D8%AD%D8%B5%D8%A7%D8%A1.pdf"
+        },
+        {
+          "name": "ملزمة الإحصاء.pdf",
+          "size": 8204624,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/%D8%A5%D8%AD%D8%B5%D8%A7%D8%A1/%D9%85%D9%84%D8%B2%D9%85%D8%A9%20%D8%A7%D9%84%D8%A5%D8%AD%D8%B5%D8%A7%D8%A1.pdf"
         }
       ]
     },
