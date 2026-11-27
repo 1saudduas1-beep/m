@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-27T04:46:25.560Z",
+  "updated": "2026-11-27T04:49:44.002Z",
   "subjects": [
     {
       "name": "إحصاء",
@@ -155,6 +155,21 @@
           "name": "Clinical anatomy of CVS.pdf",
           "size": 6339010,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20anatomy/Clinical%20anatomy%20of%20CVS.pdf"
+        }
+      ]
+    },
+    {
+      "name": "practical biochemistry",
+      "files": [
+        {
+          "name": "Cardiac Enzyme.pdf",
+          "size": 631926,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20biochemistry/Cardiac%20Enzyme.pdf"
+        },
+        {
+          "name": "practical-biochemistry-lipid-profile.pdf",
+          "size": 670739,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20biochemistry/practical-biochemistry-lipid-profile.pdf"
         }
       ]
     },
