@@ -1,7 +1,7 @@
 {
   "repo": "1saudduas1-beep/m",
   "branch": "main",
-  "updated": "2026-11-27T04:38:33.785Z",
+  "updated": "2026-11-27T04:46:25.560Z",
   "subjects": [
     {
       "name": "إحصاء",
@@ -190,6 +190,11 @@
           "name": "practical ECG.pdf",
           "size": 7831464,
           "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20physiology/practical%20ECG.pdf"
+        },
+        {
+          "name": "Vital Signs-practical physiology.pdf",
+          "size": 1165533,
+          "url": "https://raw.githubusercontent.com/1saudduas1-beep/m/main/practical%20physiology/Vital%20Signs-practical%20physiology.pdf"
         }
       ]
     }
